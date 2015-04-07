@@ -13,7 +13,7 @@
 
     <!-- Charting library -->
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript" src="js/tabletop.js"></script>
+    <script type="text/javascript" src="js/tabletop1.3.4.js"></script>
     <script type="text/javascript" src='js/sheetsee.js'></script>
 
 
@@ -41,9 +41,9 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">KY Gov.<span class="sr-only">(current)</span></a></li>
-            <li><a href="#">LA Gov.</a></li>
-            <li><a href="#">MS Gov.</a></li>
+            <li class="active"><a href="#label-kygov">KY Gov.<span class="sr-only">(current)</span></a></li>
+            <li><a href="#label-lagov">LA Gov.</a></li>
+            <li><a href="#label-msgov">MS Gov.</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
@@ -60,25 +60,26 @@
     <div class="container">
 
     <div class="row">
-      <h1>Kentucky Governor</h1>
+      <h1 id="label-kygov">Kentucky Governor</h1>
       <div class="col-md-6">
-        <h4>Polling goes here</h4>
-        <div id="placeholder"></div>
+        <h4>Latest Polls</h4>
+        <div id="barChart"></div>
       </div>
       <div class="col-md-6">
         <h4>Other data goes here</h4>
+        <p>Perhaps even with some paragraphs of explanation.</p>
       </div>
       <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
     </div>
     <hr>
 
     <div class="row">
-      <h1>Louisiana Governor</h1>
+      <h1 id="label-lagov">Louisiana Governor</h1>
     </div>
     <hr>
 
     <div class="row">
-      <h1>Mississippi Governor</h1>
+      <h1 id="label-msgov">Mississippi Governor</h1>
     </div>
     <hr>
 
@@ -108,17 +109,23 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
 
-    <script id="placeholder" type="text/html">
-      var placeholderoptions = {labels: "name", units: "cuddleability", m: [60, 60, 30, 150], w: 600, h: 400, div: "#placeholder", xaxis: "Guy A", hiColor: "#FF317D"}
-      </script>
 
-      <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function() {
-            var URL = "https://docs.google.com/spreadsheets/d/1tvmE57Tr-pzVSf7JCg9xbJyYbeEORB_DPQxOAk5bEe8/pubhtml"
-            Tabletop.init( { key: URL, callback: myData, simpleSheet: true } )
-        })
-        function myData(data) {
-          Sheetsee.d3BarChart(data, placeholderoptions)
+    <script type="text/javascript">
+       document.addEventListener('DOMContentLoaded', function() {
+       	var URL = "1tvmE57Tr-pzVSf7JCg9xbJyYbeEORB_DPQxOAk5bEe8"
+      		Tabletop.init( { key: URL, callback: showInfo, simpleSheet: true } )
+      	})
+
+        function showInfo(data) {
+          var lineOptions = { labels: "label",
+                              units: "votes",
+                              m: [100, 100, 100, 100],
+                              w: 400, h: 400,
+                              div: "#barChart",
+                              yaxis: "votes",
+                              hiColor: "#E4EB29"
+                            }
+          Sheetsee.d3LineChart(data, lineOptions)
         }
       </script>
 
